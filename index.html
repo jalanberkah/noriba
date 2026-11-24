@@ -279,6 +279,39 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
   .sheet .zonebadge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Hover (hanya perangkat dengan penunjuk) */
+.card,.btn,.chip,.opt,.tab,.tab svg,details.qa,details.qa summary,details.qa summary:after,.totop,.dalil{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background-color .18s ease,color .18s ease,filter .18s ease}
+.btn-card{position:relative;--hv:var(--leaf);--hvt:#2f6a47}
+.menu .btn-card:nth-child(3n+2){--hv:#c9a15b;--hvt:#8a6b1f}
+.menu .btn-card:nth-child(3n+3){--hv:#3a5a94;--hvt:#2e4c86}
+.btn-card:after{content:"\2192";position:absolute;right:16px;top:50%;margin-top:-.7em;font-size:1.3rem;font-weight:800;color:var(--hv);opacity:0;transform:translateX(-6px);transition:opacity .18s ease,transform .18s ease}
+@media (hover:hover){
+  .btn-card:hover,.btn-card:focus-visible{transform:translateY(-3px);border-color:var(--hv);background:var(--gold-soft);box-shadow:0 10px 24px rgba(15,27,51,.16),inset 4px 0 0 var(--hv)}
+  .btn-card:hover h4,.btn-card:focus-visible h4{color:var(--hvt)}
+  .btn-card:hover:after,.btn-card:focus-visible:after{opacity:1;transform:none}
+  .card:not(.btn-card):not(.flat):hover{border-color:var(--g200);box-shadow:0 8px 22px rgba(15,27,51,.13);transform:translateY(-2px)}
+  .card.flat:not(.btn-card):hover{border-color:var(--g200)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(15,27,51,.18)}
+  .btn:active{transform:none;box-shadow:none;filter:brightness(.97)}
+  .btn.primary:hover{filter:brightness(1.07)}
+  .btn.green:hover{background:var(--g800)}
+  .btn.ghost:hover{background:var(--g50);border-color:var(--g500);color:var(--g900)}
+  .btn.danger:hover{background:#fbeceb;border-color:var(--bad)}
+  .chip:hover{background:var(--g100);border-color:var(--g500);transform:translateY(-1px)}
+  .chip.on:hover{background:var(--g800);border-color:var(--g800);color:#fff}
+  .opt:hover{border-color:var(--g500);background:var(--g50);transform:translateX(2px)}
+  details.qa:hover{border-color:var(--g200);box-shadow:0 6px 16px rgba(15,27,51,.12)}
+  details.qa summary:hover{background:var(--g50);border-radius:14px}
+  details.qa summary:hover:after{transform:scale(1.25)}
+  .tab:hover{color:var(--accent);background:var(--g50)}
+  .tab:hover svg{transform:translateY(-2px) scale(1.1);color:var(--leaf)}
+  .totop:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.3)}
+  .dalil:hover{box-shadow:0 6px 16px rgba(15,27,51,.12)}
+}
+@media screen{html[data-theme="dark"] .btn.danger:hover{background:#3a1d1b}html[data-theme="dark"] .btn-card:hover,html[data-theme="dark"] .btn-card:focus-visible{box-shadow:0 10px 24px rgba(0,0,0,.5),inset 4px 0 0 var(--hv)}}
+@media screen{html[data-theme="dark"] .btn-card{--hvt:#8fd6a8}html[data-theme="dark"] .menu .btn-card:nth-child(3n+2){--hvt:#e0c27a}html[data-theme="dark"] .menu .btn-card:nth-child(3n+3){--hvt:#8fb0ea}}
+@media print{.btn-card:after{display:none}}
 </style>
 </head>
 <body>
