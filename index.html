@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'">
-<title>noriba — Peta Utang dan Pustaka Fatwa</title>
-<meta name="description" content="Peta Utang, fatwa, tanya jawab, dan catatan hijrah keuangan untuk keluar dari jeratan pinjol dan riba.">
+<title>noriba — Kalkulator Utang dan Pustaka Fatwa</title>
+<meta name="description" content="Kalkulator Utang, fatwa, tanya jawab, dan catatan hijrah keuangan untuk keluar dari jeratan pinjol dan riba.">
 <meta name="theme-color" content="#0f1b33">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -37,13 +37,13 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* Header */
 .top{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,#0b1424,#1b2b49);color:#fff;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 8l5 12 12 5-12 5-5 12-5-12-12-5 12-5z' fill='none' stroke='%23ffffff' stroke-opacity='.07' stroke-width='1.2'/%3E%3C/svg%3E"),linear-gradient(135deg,#0b1424,#1b2b49);
-  padding:calc(env(safe-area-inset-top) + 12px) 0 12pxborder-bottom:3px solid var(--leaf);}
+  padding:calc(env(safe-area-inset-top) + 16px) 0 16px;border-bottom:3px solid var(--leaf)}
 .top .wrap{display:flex;align-items:center;gap:12px}
 .logo{width:46px;height:46px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
 .lg{width:100%;height:100%;display:block}
 .brand{font-weight:800;font-size:1.25rem;letter-spacing:.2px}
-.brand{font-size:clamp(1.05rem,4.6vw,1.25rem);white-space:nowrap}
-.brand small{display:block;font-weight:500;font-size:clamp(.62rem,2.8vw,.72rem);opacity:.8;letter-spacing:.2px;white-space:nowrap}
+.brand{font-size:clamp(1.05rem,4.6vw,1.25rem);white-space:nowrap;line-height:1.2}
+.brand small{display:block;margin-top:3px;line-height:1.25;font-weight:500;font-size:clamp(.62rem,2.8vw,.72rem);opacity:.8;letter-spacing:.2px;white-space:nowrap}
 .top .spacer{flex:1}
 .helpbtn{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.14);color:#fff;font-weight:800;font-size:1.15rem;cursor:pointer;flex:none}
 .helpbtn:hover{background:rgba(255,255,255,.26)} .helpbtn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
@@ -312,6 +312,16 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
 @media screen{html[data-theme="dark"] .btn.danger:hover{background:#3a1d1b}html[data-theme="dark"] .btn-card:hover,html[data-theme="dark"] .btn-card:focus-visible{box-shadow:0 10px 24px rgba(0,0,0,.5),inset 4px 0 0 var(--hv)}}
 @media screen{html[data-theme="dark"] .btn-card{--hvt:#8fd6a8}html[data-theme="dark"] .menu .btn-card:nth-child(3n+2){--hvt:#e0c27a}html[data-theme="dark"] .menu .btn-card:nth-child(3n+3){--hvt:#8fb0ea}}
 @media print{.btn-card:after{display:none}}
+
+.cmpcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:10px}
+.cmp .m{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--card)}
+.cmp .m.pick{border-color:var(--leaf);box-shadow:inset 0 0 0 1px var(--leaf)}
+.cmp .m h4{margin:0 0 4px}
+.brow{display:grid;grid-template-columns:7.5rem 1fr auto;gap:8px;align-items:center;margin-bottom:8px}
+.btrack{height:12px;border-radius:9px;background:var(--g100);overflow:hidden}
+.btrack i{display:block;height:100%;border-radius:9px;transition:width .4s ease}
+.btrack i.a{background:var(--g700)} .btrack i.s{background:var(--gold)}
+@media (max-width:420px){.brow{grid-template-columns:1fr auto}.brow .btrack{grid-column:1/-1;order:3}}
 </style>
 </head>
 <body>
@@ -355,7 +365,7 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
           <h2>Bismillah, mari mulai melangkah keluar dari riba.</h2>
           <p>Anda tidak sendirian. Aplikasi ini membantu Anda memetakan utang, menyusun urutan pelunasan, dan memahami hukum riba menurut Al-Qur'an, sunnah, serta penjelasan ulama.</p>
           <div class="hero-cta">
-            <button class="btn primary" data-go="calc">Mulai Peta Utang</button>
+            <button class="btn primary" data-go="calc">Mulai Kalkulator Utang</button>
             <button class="btn ghost" data-go="pustaka">Buka Pustaka</button>
           </div>
         </div>
@@ -365,7 +375,7 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
     <h3 style="margin:18px 2px 10px">Yang bisa Anda lakukan di sini</h3>
     <div class="grid2 stack menu">
       <button class="card flat btn-card" data-go="calc" style="text-align:left;cursor:pointer;font:inherit">
-        <h4>1. Peta Utang</h4><p class="small muted" style="margin:0">Hitung rasio cicilan, perkiraan lunas, dan urutan pelunasan.</p>
+        <h4>1. Kalkulator Utang</h4><p class="small muted" style="margin:0">Hitung rasio cicilan, perkiraan lunas, dan urutan pelunasan.</p>
       </button>
       <button class="card flat btn-card" data-go="pustaka" data-tab="fatwa" style="text-align:left;cursor:pointer;font:inherit">
         <h4>2. Fatwa</h4><p class="small muted" style="margin:0">Rujukan dari Al-Qur'an, sunnah, MUI, para ulama Ahlus Sunnah, dan kewaspadaan dalam akad dagang.</p>
@@ -403,9 +413,9 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
     </div>
   </section>
 
-  <!-- PETA UTANG -->
-  <section id="p-calc" class="page" aria-label="Peta Utang">
-    <h2>Peta Utang</h2>
+  <!-- KALKULATOR UTANG -->
+  <section id="p-calc" class="page" aria-label="Kalkulator Utang">
+    <h2>Kalkulator Utang</h2>
     <p class="muted">Isilah tiga langkah singkat. Hasilnya berupa perkiraan, bukan angka pasti.</p>
     <div class="tipbar" data-tip="calc"><span aria-hidden="true">💡</span><p><b>Tips.</b> Isi langkah 1 sampai 3 secara berurutan. Angka boleh berupa perkiraan, dan Anda dapat mengubahnya kapan saja.</p><button class="tipx" type="button" aria-label="Tutup tips">✕</button></div>
     <div class="steps" id="steps"></div>
@@ -456,7 +466,7 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
       </div>
       <div class="row">
         <button class="btn ghost" id="back1" type="button">Kembali</button>
-        <button class="btn primary" id="to3" type="button" style="flex:1">Lihat hasil Peta Utang</button>
+        <button class="btn primary" id="to3" type="button" style="flex:1">Lihat hasil Kalkulator Utang</button>
       </div>
     </div>
 
@@ -515,7 +525,7 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
     <div class="noprint">
       <h2>Laporan dan Ekspor</h2>
       <div class="tipbar" data-tip="laporan"><span aria-hidden="true">💡</span><p><b>Tips.</b> Tekan "Simpan sebagai PDF", lalu pilih "Simpan sebagai PDF" pada jendela cetak. Untuk memindahkan data ke perangkat lain, unduh cadangan dan muat kembali di sana.</p><button class="tipx" type="button" aria-label="Tutup tips">✕</button></div>
-      <p class="muted">Laporan ini disusun dari data Peta Utang Anda. Simpan sebagai PDF untuk dibaca, dicetak, atau dibagikan kepada pasangan maupun ustaz pembimbing.</p>
+      <p class="muted">Laporan ini disusun dari data Kalkulator Utang Anda. Simpan sebagai PDF untuk dibaca, dicetak, atau dibagikan kepada pasangan maupun ustaz pembimbing.</p>
       <div class="card">
         <div class="grid2 stack">
           <button class="btn primary" id="btnPdf" type="button">Simpan sebagai PDF</button>
@@ -529,19 +539,19 @@ dialog .db{padding:6px 20px 20px;overflow:auto;max-height:calc(100vh - 140px)}
     <article class="sheet" id="sheet"></article>
     <div class="card flat noprint" style="margin-top:14px">
       <h4>Hapus data dari perangkat ini</h4>
-      <p class="small muted">Tindakan ini menghapus seluruh data Peta Utang pada peramban ini dan tidak dapat dibatalkan, kecuali Anda sudah mengunduh cadangan.</p>
+      <p class="small muted">Tindakan ini menghapus seluruh data Kalkulator Utang pada peramban ini dan tidak dapat dibatalkan, kecuali Anda sudah mengunduh cadangan.</p>
       <button class="btn danger sm" id="btnWipe" type="button">Hapus semua data</button>
     </div>
   </section>
   <footer class="sitefoot noprint">
-    <span>© Jalan Keberkahan</span>
+    <span>© <a href="https://jalankeberkahan.my.id" target="_blank" rel="noopener noreferrer" title="https://jalankeberkahan.my.id">jalankeberkahan.my.id</a></span>
   </footer>
 </main>
 
 <nav class="tabbar" aria-label="Menu utama">
   <div class="wrap">
     <button class="tab on" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Beranda</button>
-    <button class="tab" data-go="calc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/></svg>Peta Utang</button>
+    <button class="tab" data-go="calc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/></svg>Kalkulator</button>
     <button class="tab" data-go="pustaka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 19V5M9 7h6"/></svg>Pustaka</button>
     <button class="tab" data-go="laporan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Laporan</button>
   </div>
@@ -672,13 +682,13 @@ const QNA = [
  /* ---- Taubat dan pelunasan ---- */
  {k:1,q:"Apakah dosa riba masih bisa diampuni?",a:"Bisa. Az-Zumar ayat 53 menyeru hamba yang melampaui batas agar tidak berputus asa dari rahmat Allah, karena Dia mengampuni dosa seluruhnya bagi yang bertaubat. Mulailah dengan berhenti, menyesal, dan bertekad tidak mengulangi.",s:"QS. Az-Zumar 53"},
  {k:1,q:"Saya sudah sadar dan bertaubat. Apakah bunga yang tersisa tetap harus dibayar?",a:"Rujukan yang kami kumpulkan menyebut bahwa setelah taubat, yang wajib dikembalikan adalah pokok, sedangkan tambahan ribawi ditinggalkan (Al-Baqarah 279). Namun, kewajiban kontrak dan hukum negara berjalan terpisah dari penilaian syariat. Silakan konsultasikan kasus Anda kepada ustaz yang berilmu sebelum mengambil keputusan.",s:"QS. Al-Baqarah 279; Ibn Baz, binbaz.org.sa fatwa 18523"},
- {k:1,q:"Bagaimana dengan bunga yang sudah terlanjur saya bayar?",a:"Aplikasi ini belum memuat rujukan primer tentang bunga yang telah dibayar. Kami tidak ingin menebaknya. Mohon tanyakan kepada ustaz, dan bawalah laporan Peta Utang agar ustaz melihat angka yang sebenarnya.",s:GU},
+ {k:1,q:"Bagaimana dengan bunga yang sudah terlanjur saya bayar?",a:"Aplikasi ini belum memuat rujukan primer tentang bunga yang telah dibayar. Kami tidak ingin menebaknya. Mohon tanyakan kepada ustaz, dan bawalah laporan Kalkulator Utang agar ustaz melihat angka yang sebenarnya.",s:GU},
  {k:1,q:"Apa saja langkah taubat dari riba?",a:"Para ulama umumnya menyebut empat hal: berhenti dari perbuatan itu, menyesalinya, bertekad tidak mengulangi, dan menunaikan hak orang lain yang masih tertanggung. Pada utang, hak itu adalah pokok. Rincian untuk kasus Anda sebaiknya ditanyakan kepada ustaz.",s:"QS. Al-Baqarah 279; QS. Az-Zumar 53"},
  {k:1,q:"Bolehkah saya berhenti membayar karena utangnya mengandung riba?",a:"Aplikasi ini tidak menyarankan hal tersebut. Pokok utang tetap menjadi hak pemberi utang. Menunda pembayaran padahal mampu disebut kezaliman dalam hadits. Jika Anda ingin menghentikan bagian ribawinya, bicarakan lebih dahulu dengan ustaz dan pemberi utang, serta pahami akibat hukumnya.",s:"HR. Al-Bukhari 2287; Ibn Baz (fatwa 17518)"},
  {k:1,q:"Bagaimana jika saya benar-benar tidak mampu membayar?",a:"Allah tidak membebani seseorang di luar kesanggupannya, dan pemberi utang diperintahkan memberi tenggang waktu kepada peminjam yang kesulitan. Meski begitu, peminjam tetap wajib berusaha sungguh-sungguh. Ibn Baz menegaskan bahwa peminjam yang lalai berusaha termasuk golongan penunda yang zalim.",s:"QS. Al-Baqarah 280, 286; Ibn Baz (fatwa 17518)"},
  {k:1,q:"Bolehkah saya meminta keringanan atau penghapusan bunga?",a:"Boleh. Tidak ada larangan untuk meminta keringanan, jadwal ulang, atau penghapusan bunga dan denda. Al-Baqarah 280 bahkan menyebut membebaskan sebagian atau seluruh utang sebagai kebaikan. Ajukan secara sopan dan tertulis, serta simpan buktinya.",s:"QS. Al-Baqarah 280; panduan umum aplikasi"},
  {k:1,q:"Apakah lebih baik melunasi lebih cepat?",a:"Umumnya iya, karena total tambahan yang harus dibayar menjadi lebih kecil. Sebelum melunasi lebih awal, periksa apakah ada biaya pelunasan dipercepat dan mintalah rincian sisa tagihan secara tertulis.",s:GU},
- {k:1,q:"Utang mana yang sebaiknya dilunasi lebih dahulu?",a:"Ada dua cara. 'Tambahan terbesar dulu' melunasi utang dengan biaya tambahan tertinggi lebih awal, sehingga umumnya menghemat lebih banyak. 'Pokok terkecil dulu' melunasi utang paling kecil lebih awal, sehingga Anda cepat merasakan kemajuan. Peta Utang menghitung keduanya.",s:GU},
+ {k:1,q:"Utang mana yang sebaiknya dilunasi lebih dahulu?",a:"Ada dua cara. 'Tambahan terbesar dulu' melunasi utang dengan biaya tambahan tertinggi lebih awal, sehingga umumnya menghemat lebih banyak. 'Pokok terkecil dulu' melunasi utang paling kecil lebih awal, sehingga Anda cepat merasakan kemajuan. Kalkulator Utang menghitung keduanya.",s:GU},
  {k:1,q:"Bagaimana jika saya menunda karena lupa atau sibuk?",a:"Hadits menyebut penundaan oleh orang yang mampu sebagai kezaliman. Karena itu, pasanglah pengingat satu hari sebelum jatuh tempo dan, bila perlu, hubungi pemberi utang sebelum terlambat.",s:"HR. Al-Bukhari 2287"},
  {k:1,q:"Doa apa yang bisa saya baca agar dimudahkan melunasi utang?",a:"Anda dapat membaca doa berlindung dari lilitan utang (HR. Al-Bukhari 6369) dan doa agar dicukupkan dengan yang halal (HR. At-Tirmidzi 3563). Teksnya tersedia pada tab Motivasi dan tab Doa dan Dzikir. Doa bukan pengganti ikhtiar, jadi tetap susunlah rencana pelunasan.",s:"HR. Al-Bukhari 6369; HR. At-Tirmidzi 3563"},
  {k:1,q:"Apakah niat melunasi berpengaruh?",a:"Ya. Hadits Abu Hurairah menyebut bahwa orang yang mengambil harta orang lain dengan niat melunasinya akan ditolong Allah untuk melunasinya. Niat yang lurus perlu disertai rencana dan usaha.",s:"HR. Al-Bukhari 2387"},
@@ -697,7 +707,7 @@ const QNA = [
  {k:3,q:"Bagaimana cara mengecek pinjol resmi?",a:"Periksa daftar penyelenggara berizin di situs OJK (ojk.go.id) atau tanyakan melalui layanan 157. Waspadai aplikasi yang meminta akses kontak dan galeri, serta menawarkan pinjaman lewat pesan pribadi.",s:GU},
  {k:3,q:"Apakah biaya admin atau biaya layanan pinjol termasuk riba?",a:"Kaidah yang disepakati menyatakan bahwa tambahan yang disyaratkan dalam pinjaman adalah riba. Apakah biaya tertentu termasuk tambahan atas pinjaman atau imbalan jasa yang nyata, perlu dinilai dari rincian akadnya. Bawalah rincian biaya Anda kepada ustaz.",s:"Ibn al-Mundhir, al-Ijma' (dinukil Ibn Qudamah dalam al-Mughni)"},
  {k:3,q:"Bolehkah saya meminjam kepada teman atau keluarga?",a:"Boleh. Catatlah jumlah dan tanggal pelunasannya sesuai adab dalam Al-Baqarah 282, dan jangan mensyaratkan tambahan apa pun atas pinjaman itu.",s:"QS. Al-Baqarah 282; kaidah ijma' (Ibn Qudamah)"},
- {k:3,q:"Saya punya banyak pinjol sekaligus. Dari mana saya mulai?",a:"Catat semuanya di Peta Utang, hitung total cicilan, lalu pilih urutan pelunasan. Hentikan pinjaman baru untuk menutup yang lama, dan hubungi pemberi utang yang membebani Anda paling berat untuk meminta jadwal ulang.",s:GU},
+ {k:3,q:"Saya punya banyak pinjol sekaligus. Dari mana saya mulai?",a:"Catat semuanya di Kalkulator Utang, hitung total cicilan, lalu pilih urutan pelunasan. Hentikan pinjaman baru untuk menutup yang lama, dan hubungi pemberi utang yang membebani Anda paling berat untuk meminta jadwal ulang.",s:GU},
  /* ---- Paylater dan kredit ---- */
  {k:4,q:"Bolehkah membeli barang secara kredit dengan harga lebih mahal daripada tunai?",a:"Ibn Baz membolehkannya jika akadnya benar-benar jual beli, harga disepakati jelas sejak awal, dan penjual memiliki serta menyerahkan barangnya. Beliau juga mencatat bahwa sebagian ulama melarang tambahan harga karena tempo. Kenaikan setelah jatuh tempo karena ditunda tetap termasuk riba. Produk paylater harus dinilai satu per satu.",s:"Ibn Baz (fatwa 17518); QS. Al-Baqarah 275, 282"},
  {k:4,q:"Apakah paylater boleh digunakan?",a:"Paylater berbeda-beda bentuknya. Jika ia berupa pembelian barang nyata dengan harga tetap sejak awal, rujukan Ibn Baz memberi ruang. Jika ia berupa pinjaman uang yang dikenai bunga atau denda yang bertambah, unsur riba muncul. Periksa akadnya sebelum memakai, dan tanyakan kepada ustaz.",s:"Ibn Baz (fatwa 17518); Fatwa MUI 1/2004"},
@@ -719,19 +729,19 @@ const QNA = [
  {k:7,q:"Apakah aplikasi ini mengeluarkan fatwa?",a:"Tidak. Aplikasi ini hanya mengumpulkan dan meringkas rujukan dari sumber yang telah ditentukan. Jika ada perbedaan pendapat, keduanya ditampilkan. Keputusan akhir mengenai kasus pribadi sebaiknya Anda konsultasikan kepada ulama atau ustaz yang Anda percayai.",s:"—"},
  {k:7,q:"Apa saja sumber yang dipakai di aplikasi ini?",a:"Pustaka ini dibatasi pada Al-Qur'an dengan terjemah Kemenag, hadits dari kitab induk, fatwa MUI dan DSN-MUI, serta para ulama Ahlus Sunnah. Keputusan organisasi kemasyarakatan tertentu tidak dimuat.",s:"—"},
  {k:7,q:"Apakah data utang saya dikirim ke server?",a:"Tidak. Data hanya tersimpan di peramban pada perangkat Anda. Anda dapat mengunduh cadangan atau menghapus seluruh data kapan saja di menu Laporan.",s:"—"},
- {k:7,q:"Seberapa akurat hasil Peta Utang?",a:"Hasilnya berupa perkiraan. Perhitungan memakai angka yang Anda isi dan menganggapnya tetap setiap bulan. Bunga dan biaya sebenarnya dapat berbeda, sehingga cocokkan dengan sisa tagihan resmi dari pemberi utang.",s:"—"},
+ {k:7,q:"Seberapa akurat hasil Kalkulator Utang?",a:"Hasilnya berupa perkiraan. Perhitungan memakai angka yang Anda isi dan menganggapnya tetap setiap bulan. Bunga dan biaya sebenarnya dapat berbeda, sehingga cocokkan dengan sisa tagihan resmi dari pemberi utang.",s:"—"},
  {k:7,q:"Bagaimana membaca zona rasio cicilan?",a:"Rasio dihitung dari total cicilan bulanan dibagi penghasilan. Pedoman umum yang dipakai: sampai 30% aman, 30–40% waspada, 40–50% berat, dan di atas 50% kritis. Angka ini hanya pedoman, bukan aturan baku.",s:"—"},
  {k:7,q:"Bagaimana cara menyimpan hasil dan membagikannya kepada pasangan atau ustaz?",a:"Buka menu Laporan, lalu pilih 'Simpan sebagai PDF' atau 'Salin ringkasan'. Ingatlah bahwa laporan memuat nama pemberi utang dan angka keuangan Anda, jadi bagikan hanya kepada orang yang Anda percaya.",s:"—"},
  /* ---- Berdasarkan kasus ---- */
  {k:8,q:"Kasus: Saya terlambat membayar pinjol dan penagihnya menelepon seluruh kontak keluarga saya. Apa yang harus saya lakukan?",a:"Pertama, tenangkan diri dan simpan bukti berupa tangkapan layar pesan, nomor penelepon, dan rekaman bila ada. Kedua, hubungi pemberi utang secara tertulis, akui kewajiban pokok, dan ajukan jadwal bayar yang realistis. Ketiga, laporkan penyebaran data pribadi atau ancaman ke OJK melalui layanan 157 atau ke pihak berwajib. Ijtima' Ulama MUI 2021 menyoroti penagihan yang melanggar kehormatan sebagai praktik yang tidak dibenarkan. Keempat, jangan menutup tagihan itu dengan pinjol baru.",s:"Ijtima' Ulama MUI VII, 2021; panduan umum aplikasi"},
- {k:8,q:"Kasus: Penghasilan saya Rp5.000.000 per bulan. Saya punya lima pinjol dengan total cicilan Rp3.500.000 per bulan. Bagaimana memulainya?",a:"Rasio cicilan Anda 70%, sehingga masuk zona kritis. Mulailah dengan lima langkah. (1) Masukkan kelima utang ke Peta Utang beserta biaya tambahannya. (2) Hitung dana yang benar-benar tersisa setelah kebutuhan pokok. (3) Hubungi pemberi utang yang biayanya paling besar dan minta keringanan secara tertulis. (4) Hentikan pinjaman baru. (5) Cari tambahan penghasilan yang halal. Al-Baqarah 280 memerintahkan tenggang waktu bagi yang kesulitan, tetapi Anda tetap wajib berusaha. Simpan laporan PDF dan bawa kepada ustaz atau pendamping keuangan.",s:"QS. Al-Baqarah 280; Fatwa MUI 1/2004; panduan umum aplikasi"},
+ {k:8,q:"Kasus: Penghasilan saya Rp5.000.000 per bulan. Saya punya lima pinjol dengan total cicilan Rp3.500.000 per bulan. Bagaimana memulainya?",a:"Rasio cicilan Anda 70%, sehingga masuk zona kritis. Mulailah dengan lima langkah. (1) Masukkan kelima utang ke Kalkulator Utang beserta biaya tambahannya. (2) Hitung dana yang benar-benar tersisa setelah kebutuhan pokok. (3) Hubungi pemberi utang yang biayanya paling besar dan minta keringanan secara tertulis. (4) Hentikan pinjaman baru. (5) Cari tambahan penghasilan yang halal. Al-Baqarah 280 memerintahkan tenggang waktu bagi yang kesulitan, tetapi Anda tetap wajib berusaha. Simpan laporan PDF dan bawa kepada ustaz atau pendamping keuangan.",s:"QS. Al-Baqarah 280; Fatwa MUI 1/2004; panduan umum aplikasi"},
  {k:8,q:"Kasus: Saya membeli barang lewat paylater. Karena terlambat tiga hari, saya dikenai denda. Bolehkah saya membayar dendanya?",a:"Pembelian barang secara tangguh dengan harga tetap sejak awal dibolehkan menurut Ibn Baz. Namun, denda keterlambatan diperselisihkan. DSN-MUI membolehkan denda sosial yang terbatas dan tidak menjadi pendapatan lembaga, sedangkan ulama Saudi yang dirujuk menilainya riba. Selesaikan pokok tagihan tepat waktu, lalu bawa kontrak Anda kepada ustaz untuk memutuskan perlakuan dendanya. Ke depan, pasang pengingat dan pertimbangkan berhenti memakai paylater.",s:"Ibn Baz (fatwa 17518, 7166); DSN-MUI 17/2000"},
  {k:8,q:"Kasus: Kredit motor saya sudah berjalan dua tahun, lalu saya baru sadar ada bunga di dalamnya. Haruskah saya menghentikan cicilan?",a:"Jangan berhenti secara sepihak. Pertama, minta rincian kontrak: harga barang, uang muka, jumlah cicilan, dan denda. Ibn Baz membolehkan jual beli kredit jika harga ditetapkan sejak awal dan barang dimiliki penjual, sedangkan masalah muncul pada akad pinjaman berbunga atau tambahan karena keterlambatan. Kedua, bawa kontrak itu kepada ustaz untuk dinilai. Ketiga, tanyakan opsi pelunasan dipercepat atau pengalihan dan hitung biayanya. Berhenti membayar dapat berakibat penarikan kendaraan dan catatan kredit yang buruk.",s:"Ibn Baz (fatwa 17518); HR. Al-Bukhari 2287"},
- {k:8,q:"Kasus: Kartu kredit saya menumpuk karena saya hanya membayar tagihan minimum. Apa langkahnya?",a:"Tagihan minimum menyisakan saldo yang terus dikenai bunga, dan bunga itu tergolong tambahan ribawi menurut Fatwa MUI 1/2004. Langkahnya: (1) catat seluruh kartu di Peta Utang; (2) hentikan pemakaian baru; (3) lunasi kartu dengan bunga tertinggi lebih dahulu; (4) ajukan restrukturisasi atau cicilan tetap bila tidak mampu; (5) setelah lunas, pertimbangkan menutup kartu.",s:"Fatwa MUI 1/2004; panduan umum aplikasi"},
+ {k:8,q:"Kasus: Kartu kredit saya menumpuk karena saya hanya membayar tagihan minimum. Apa langkahnya?",a:"Tagihan minimum menyisakan saldo yang terus dikenai bunga, dan bunga itu tergolong tambahan ribawi menurut Fatwa MUI 1/2004. Langkahnya: (1) catat seluruh kartu di Kalkulator Utang; (2) hentikan pemakaian baru; (3) lunasi kartu dengan bunga tertinggi lebih dahulu; (4) ajukan restrukturisasi atau cicilan tetap bila tidak mampu; (5) setelah lunas, pertimbangkan menutup kartu.",s:"Fatwa MUI 1/2004; panduan umum aplikasi"},
  {k:8,q:"Kasus: Saya meminjam Rp10.000.000 dari teman, lalu ia meminta saya mengembalikan Rp11.000.000 sebagai 'bunga'. Bagaimana sikap saya?",a:"Tambahan yang disyaratkan dalam pinjaman termasuk riba menurut kaidah yang disepakati dan Fatwa MUI. Pokok Rp10.000.000 tetap menjadi hak teman Anda. Sampaikan dengan sopan bahwa Anda bersedia melunasi pokok sesuai kesepakatan awal, dan jelaskan alasan syar'i Anda. Jika ia bersikeras, mintalah ustaz menjadi penengah. Hindari menyepakati syarat tambahan itu sejak awal.",s:"QS. Al-Baqarah 279; Fatwa MUI 1/2004; Ibn al-Mundhir dan Ibn Qudamah (al-Mughni)"},
- {k:8,q:"Kasus: Suami saya berutang pinjol tanpa sepengetahuan saya, dan sekarang kami ditagih. Bagaimana menyikapinya?",a:"Bicarakan dengan tenang dan terbuka. Ajaklah suami mencatat seluruh utang di Peta Utang, lalu susun rencana bersama. Hindari saling menyalahkan karena itu menghambat penyelesaian. Mengenai apakah istri ikut menanggung secara hukum, jawabannya bergantung pada hukum perdata dan keadaan masing-masing, sehingga konsultasikan kepada lembaga bantuan hukum dan ustaz. Laporan PDF dapat dipakai sebagai bahan diskusi keluarga.",s:GU},
+ {k:8,q:"Kasus: Suami saya berutang pinjol tanpa sepengetahuan saya, dan sekarang kami ditagih. Bagaimana menyikapinya?",a:"Bicarakan dengan tenang dan terbuka. Ajaklah suami mencatat seluruh utang di Kalkulator Utang, lalu susun rencana bersama. Hindari saling menyalahkan karena itu menghambat penyelesaian. Mengenai apakah istri ikut menanggung secara hukum, jawabannya bergantung pada hukum perdata dan keadaan masing-masing, sehingga konsultasikan kepada lembaga bantuan hukum dan ustaz. Laporan PDF dapat dipakai sebagai bahan diskusi keluarga.",s:GU},
  {k:8,q:"Kasus: Usaha saya bangkrut dan saya masih menanggung utang modal. Apa yang sebaiknya saya lakukan?",a:"Sampaikan kondisi Anda secara jujur kepada pemberi utang dan tawarkan rencana cicilan yang realistis. Al-Baqarah 280 memerintahkan tenggang waktu bagi peminjam yang kesulitan. Jual aset yang tidak vital bila perlu, dan cari penghasilan sementara yang halal. Untuk usaha berikutnya, pertimbangkan modal bagi hasil dengan bagian laba yang jelas, bukan pinjaman berbunga.",s:"QS. Al-Baqarah 280; Ibn Baz (fatwa 17518)"},
- {k:8,q:"Kasus: Saya terkena PHK dan belum punya penghasilan, padahal cicilan tetap berjalan. Apa yang harus saya dahulukan?",a:"Kondisi ini termasuk kesulitan yang diakui. Hubungi pemberi utang sebelum jatuh tempo, tunjukkan bukti PHK, dan minta keringanan secara tertulis. Dahulukan kebutuhan pokok keluarga, lalu cicilan yang paling berisiko. Perbarui Peta Utang dengan penghasilan sementara Anda, dan cari pekerjaan atau usaha kecil yang halal. Ingatlah bahwa Allah tidak membebani seseorang di luar kesanggupannya.",s:"QS. Al-Baqarah 280, 286; panduan umum aplikasi"},
+ {k:8,q:"Kasus: Saya terkena PHK dan belum punya penghasilan, padahal cicilan tetap berjalan. Apa yang harus saya dahulukan?",a:"Kondisi ini termasuk kesulitan yang diakui. Hubungi pemberi utang sebelum jatuh tempo, tunjukkan bukti PHK, dan minta keringanan secara tertulis. Dahulukan kebutuhan pokok keluarga, lalu cicilan yang paling berisiko. Perbarui Kalkulator Utang dengan penghasilan sementara Anda, dan cari pekerjaan atau usaha kecil yang halal. Ingatlah bahwa Allah tidak membebani seseorang di luar kesanggupannya.",s:"QS. Al-Baqarah 280, 286; panduan umum aplikasi"},
  {k:8,q:"Kasus: Pinjol ilegal mengancam menyebarkan foto saya. Saya sangat takut. Apa yang bisa saya lakukan?",a:"Jangan menuruti ancaman dengan membayar berkali-kali atau meminjam lagi. Simpan semua bukti, lalu laporkan ke OJK melalui layanan 157 dan ke polisi. Cabut izin akses kontak dan galeri pada aplikasi, ganti kata sandi akun Anda, dan beri tahu keluarga lebih dahulu agar tidak terkejut. Mengenai pokok pinjaman, konsultasikan dengan lembaga bantuan hukum dan ustaz. Jika rasa takut membuat Anda sulit tidur atau berpikir jernih, ceritakan kepada orang yang Anda percaya.",s:"Ijtima' Ulama MUI VII, 2021; panduan umum aplikasi"},
  {k:8,q:"Kasus: Saya meminjam dari rentenir atau koperasi harian dengan bunga mingguan. Apa hukumnya dan bagaimana keluar dari lingkaran itu?",a:"Tambahan yang ditetapkan atas pinjaman adalah riba menurut Fatwa MUI 1/2004 dan kaidah ijma' yang dinukil Ibn Qudamah. Untuk keluar: catat sisa pokok, hitung total tambahan yang sudah dibayar, lalu susun rencana melunasi pokok secara bertahap sambil bernegosiasi. Cari pinjaman tanpa tambahan dari keluarga atau komunitas, dan jangan menambal dengan rentenir lain.",s:"Fatwa MUI 1/2004; Ibn al-Mundhir, al-Ijma' (dinukil Ibn Qudamah dalam al-Mughni)"},
  {k:8,q:"Kasus: Cicilan rumah (KPR) bank konvensional saya masih 12 tahun. Apakah saya harus menjual rumah?",a:"Jangan terburu-buru menjual rumah. Aplikasi ini belum memuat rujukan khusus KPR. KPR dapat berbentuk jual beli atau pinjaman berbunga, tergantung akadnya, dan bunga pada pinjaman tergolong riba menurut Fatwa MUI 1/2004. Bawa akad Anda kepada ustaz untuk dinilai, lalu hitung opsi pelunasan dipercepat serta pengalihan ke skema syariah bila tersedia dan akadnya jelas. Pertimbangkan pula dampaknya bagi keluarga.",s:"Fatwa MUI 1/2004; panduan umum aplikasi"},
@@ -744,7 +754,7 @@ const NASIHAT = [
  {g:0,tokoh:"Rasulullah ﷺ",tema:"Qana'ah",j:"Kaya yang sebenarnya adalah kaya hati",r:"Rasulullah ﷺ menjelaskan bahwa kekayaan tidak diukur dari banyaknya harta, tetapi dari hati yang merasa cukup.",p:"Sebelum membeli, tanyakan apakah Anda memerlukannya. Hati yang merasa cukup membuat Anda tidak mudah tergoda berutang demi gaya hidup.",s:"HR. Al-Bukhari no. 6446"},
  {g:0,tokoh:"Rasulullah ﷺ",tema:"Kerja halal",j:"Tangan di atas lebih baik daripada tangan di bawah",r:"Dalam khutbahnya, Rasulullah ﷺ mendorong umatnya memberi dan menjaga diri dari meminta-minta. Tangan yang memberi lebih utama daripada tangan yang meminta.",p:"Usahakan penghasilan sendiri, sekecil apa pun. Itu menjaga kehormatan dan mengurangi ketergantungan pada pinjaman.",s:"HR. Al-Bukhari no. 1429"},
  {g:0,tokoh:"Rasulullah ﷺ dan Nabi Dawud 'alaihissalam",tema:"Kerja halal",j:"Makanan terbaik berasal dari hasil kerja tangan sendiri",r:"Rasulullah ﷺ bersabda bahwa tidak ada makanan yang lebih baik daripada hasil kerja tangan sendiri, dan menyebut bahwa Nabi Dawud 'alaihissalam makan dari hasil kerjanya.",p:"Pekerjaan halal yang sederhana lebih mulia daripada penghasilan instan yang meragukan. Mulailah dari pekerjaan yang ada di depan Anda.",s:"HR. Al-Bukhari no. 2072"},
- {g:0,tokoh:"Rasulullah ﷺ",tema:"Perencanaan",j:"Harta akan ditanya: dari mana dan untuk apa",r:"Pada hari kiamat, seorang hamba akan ditanya tentang hartanya: dari mana ia memperolehnya dan ke mana ia membelanjakannya.",p:"Biasakan mencatat pemasukan dan pengeluaran. Catatan sederhana membantu Anda mempertanggungjawabkan harta, dan Peta Utang membantu memulainya.",s:"HR. At-Tirmidzi no. 2417 (hasan sahih)"},
+ {g:0,tokoh:"Rasulullah ﷺ",tema:"Perencanaan",j:"Harta akan ditanya: dari mana dan untuk apa",r:"Pada hari kiamat, seorang hamba akan ditanya tentang hartanya: dari mana ia memperolehnya dan ke mana ia membelanjakannya.",p:"Biasakan mencatat pemasukan dan pengeluaran. Catatan sederhana membantu Anda mempertanggungjawabkan harta, dan Kalkulator Utang membantu memulainya.",s:"HR. At-Tirmidzi no. 2417 (hasan sahih)"},
  {g:0,tokoh:"Nabi Yusuf 'alaihissalam",tema:"Perencanaan",j:"Menyimpan pada masa lapang untuk masa sulit",r:"Nabi Yusuf menafsirkan mimpi raja tentang tujuh tahun panen dan tujuh tahun paceklik. Beliau menyarankan agar hasil panen disimpan, kecuali sedikit untuk dimakan, supaya cukup ketika masa sulit datang.",p:"Sisihkan sebagian kecil setiap kali ada kelonggaran sebagai dana darurat. Dengan begitu, kebutuhan mendadak tidak memaksa Anda berutang.",s:"QS. Yusuf 12:47–49"},
  {g: 0, tokoh: "Rasulullah ﷺ", tema: "Rezeki", j: "Bertawakal seperti burung yang pergi pagi dan pulang kenyang", r: "Umar bin Al-Khaththab meriwayatkan sabda Rasulullah ﷺ bahwa seandainya manusia bertawakal kepada Allah dengan sebenar-benarnya, Allah akan memberi mereka rezeki sebagaimana burung diberi rezeki: pergi pagi dalam keadaan lapar dan pulang sore dalam keadaan kenyang.", p: "Burung itu tetap keluar mencari. Tawakal berjalan bersama ikhtiar: berusaha dengan cara yang halal, lalu menyerahkan hasilnya kepada Allah.", s: "HR. At-Tirmidzi no. 2344 (hasan sahih menurut At-Tirmidzi; sahih menurut Al-Albani)"},
  {g: 0, tokoh: "Rasulullah ﷺ", tema: "Bekerja", j: "Mencari kayu bakar lebih baik daripada meminta-minta", r: "Abu Hurairah meriwayatkan sumpah Rasulullah ﷺ bahwa seseorang yang mengambil talinya, memikul kayu bakar di punggungnya, itu lebih baik baginya daripada mendatangi orang lalu meminta, baik diberi maupun ditolak.", p: "Pekerjaan halal yang sederhana lebih mulia daripada bergantung pada pemberian, apalagi pada pinjaman yang menjerat. Mulailah dari pekerjaan apa pun yang halal dan dapat Anda lakukan.", s: "HR. Al-Bukhari no. 1470"},
@@ -892,7 +902,7 @@ document.addEventListener("input",e=>{
   const after=t.value.length; try{t.setSelectionRange(pos+after-before,pos+after-before);}catch(_){}
 });
 
-/* ===== PETA UTANG ===== */
+/* ===== KALKULATOR UTANG ===== */
 function stepsBar(){
   const L=["Kondisi keuangan","Daftar utang","Hasil"];
   $("#steps").innerHTML=L.map((l,i)=>`<div class="s ${step===i+1?"on":""} ${step>i+1?"done":""}"><i></i>${i+1}. ${l}</div>`).join("");
@@ -974,6 +984,21 @@ function renderResult(){
   const lunasTxt=s.lunas?`${lamaTeks(s.bulan)} (sekitar ${bulanTahun(s.bulan)})`:"Tidak akan lunas dalam 50 tahun";
   const pctTambah=s.pokok>0?Math.round(s.totalTambahan/s.pokok*100):0;
   const altTxt=A.alt.lunas?`lunas ${lamaTeks(A.alt.bulan)}, tambahan ${rp(A.alt.totalTambahan)}`:"tidak lunas dalam 50 tahun";
+  const av=A.strategy==="bunga"?A.sim:A.alt, sn=A.strategy==="bunga"?A.alt:A.sim;
+  const tambahBln=S.debts.reduce((a,d)=>a+d.sisa*rateBulanan(d)/100,0);
+  const lamaM=x=>x.lunas?lamaTeks(x.bulan):"Tidak lunas dalam 50 tahun";
+  const maxT=Math.max(av.totalTambahan,sn.totalTambahan,1);
+  const sama=Math.abs(av.totalTambahan-sn.totalTambahan)<1&&av.bulan===sn.bulan;
+  const hemat=av.totalTambahan<=sn.totalTambahan?"av":"sn";
+  const mcard=(k,nama,desc,x,badge)=>`<div class="m ${A.strategy===(k==="av"?"bunga":"kecil")?"pick":""}"><h4>${nama}</h4><p class="small muted" style="margin:0 0 8px">${desc}</p>
+      <div class="small muted">Bebas utang dalam</div><b>${esc(lamaM(x))}</b>
+      <div class="small muted" style="margin-top:6px">Total tambahan terbayar</div><b>${rp(x.totalTambahan)}</b>
+      <div style="margin-top:8px">${A.strategy===(k==="av"?"bunga":"kecil")?'<span class="tag">Pilihan Anda</span>':""}${!sama&&hemat===k?'<span class="tag draf">Paling hemat</span>':""}</div></div>`;
+  const bar=(nama,x,cls)=>`<div class="brow"><span class="small">${nama}</span><div class="btrack"><i class="${cls}" style="width:${Math.max(2,Math.round(x.totalTambahan/maxT*100))}%"></i></div><b class="small">${rp(x.totalTambahan)}</b></div>`;
+  const cmpHTML=S.debts.length>1?`<div class="card cmp"><h3>Perbandingan metode pelunasan</h3>
+    <p class="small muted">Dihitung dengan dana yang sama setiap bulan. ${sama?"Pada data Anda, kedua metode memberi hasil yang sama.":(hemat==="av"?"Tambahan terbesar dulu lebih hemat biaya pada data Anda.":"Pokok terkecil dulu ternyata lebih hemat pada data Anda.")}</p>
+    <div class="cmpcols">${mcard("av","Tambahan terbesar dulu","Disebut juga metode avalanche: utang dengan bunga/biaya tertinggi dilunasi lebih dulu.",av,"Paling hemat biaya")}${mcard("sn","Pokok terkecil dulu","Disebut juga metode snowball: utang dengan sisa terkecil dilunasi lebih dulu, sehingga lebih cepat terasa kemajuannya.",sn,"Menjaga semangat")}</div>
+    <h4 style="margin:14px 0 8px">Tambahan yang terbayar: perbandingan</h4>${bar("Tambahan terbesar dulu",av,"a")}${bar("Pokok terkecil dulu",sn,"s")}</div>`:"";
   const stratName=A.strategy==="bunga"?"Tambahan terbesar dulu":"Pokok terkecil dulu";
   const altName=A.strategy==="bunga"?"Pokok terkecil dulu":"Tambahan terbesar dulu";
   $("#result").innerHTML=`
@@ -989,7 +1014,10 @@ function renderResult(){
     <div class="stat"><small>Total sisa utang</small><b>${rp(A.totalSisa)}</b></div>
     <div class="stat"><small>Perkiraan lunas</small><b>${esc(lunasTxt)}</b></div>
     <div class="stat"><small>Dana untuk utang per bulan</small><b>${rp(A.budgetEff)}</b></div>
+    <div class="stat"><small>Total cicilan wajib per bulan</small><b>${rp(A.totalCic)}</b></div>
+    <div class="stat"><small>Tambahan (bunga/biaya) per bulan saat ini</small><b>${rp(tambahBln)}</b></div>
   </div>
+  ${cmpHTML}
   ${A.budgetCapped?`<div class="flag y">Dana alokasi yang Anda isi melebihi sisa penghasilan, sehingga aplikasi memakai ${rp(A.tersedia)}.</div>`:""}
   <div class="card">
     <h3>Pokok dan tambahan</h3>
@@ -1088,7 +1116,7 @@ function renderMotivasi(){$("#t-motivasi").innerHTML=MOTIVASI.map(k=>dalilHTML(k
 function renderReport(){
   const el=$("#sheet");
   if(!S.debts.length||S.income<=0){
-    el.innerHTML=`<div class="empty"><div class="big">📄</div><h3>Laporan belum tersedia</h3><p class="muted">Isilah Peta Utang terlebih dahulu agar laporan dapat disusun.</p><button class="btn primary noprint" data-go="calc">Mulai Peta Utang</button></div>`;
+    el.innerHTML=`<div class="empty"><div class="big">📄</div><h3>Laporan belum tersedia</h3><p class="muted">Isilah Kalkulator Utang terlebih dahulu agar laporan dapat disusun.</p><button class="btn primary noprint" data-go="calc">Mulai Kalkulator Utang</button></div>`;
     return;
   }
   const A=analyze(S),s=A.sim,now=new Date();
@@ -1099,7 +1127,7 @@ function renderReport(){
   if(s.lunas)rows.push([s.bulan,0]);
   const pct=s.pokok>0&&s.lunas?Math.round(s.totalTambahan/s.pokok*100)+"%":"—";
   el.innerHTML=`
-  <h1><svg class="lg" viewBox="0 0 120 120" style="width:34px;height:34px;display:inline-block;vertical-align:middle;margin-right:8px"><use href="#logo"/></svg>Laporan Peta Utang</h1>
+  <h1><svg class="lg" viewBox="0 0 120 120" style="width:34px;height:34px;display:inline-block;vertical-align:middle;margin-right:8px"><use href="#logo"/></svg>Laporan Kalkulator Utang</h1>
   <div class="meta">noriba · Jalan Keberkahan · disusun pada ${tgl}<br>Perkiraan berdasarkan data yang diisi pengguna. Bukan fatwa dan bukan nasihat keuangan atau hukum.</div>
   <h3>1. Kondisi keuangan bulanan</h3>
   <div class="kv"><div><span>Penghasilan bersih</span><b>${rp(A.income)}</b></div><div><span>Pengeluaran wajib</span><b>${rp(A.expense)}</b></div>
@@ -1130,14 +1158,14 @@ function renderReport(){
   <div class="foot">Laporan ini dibuat di perangkat pengguna dan tidak dikirim ke server. Perkiraan memakai angka tetap setiap bulan; kenyataan dapat berbeda. Untuk kasus pribadi, mohon berkonsultasi kepada ulama atau ustaz yang berilmu, serta konsultan keuangan atau lembaga bantuan hukum.<br>Jalan Keberkahan · Instagram: @jalankeberkahanku · Facebook: Jalan Keberkahan</div>`;
 }
 $("#btnPdf").addEventListener("click",()=>{
-  if(!S.debts.length||S.income<=0){toast("Isi Peta Utang terlebih dahulu.");return;}
-  const old=document.title;document.title="Laporan-Peta-Utang-noriba-"+new Date().toISOString().slice(0,10);
+  if(!S.debts.length||S.income<=0){toast("Isi Kalkulator Utang terlebih dahulu.");return;}
+  const old=document.title;document.title="Laporan-Kalkulator-Utang-noriba-"+new Date().toISOString().slice(0,10);
   window.print();setTimeout(()=>document.title=old,1500);
 });
 $("#btnCopy").addEventListener("click",async()=>{
-  if(!S.debts.length||S.income<=0){toast("Isi Peta Utang terlebih dahulu.");return;}
+  if(!S.debts.length||S.income<=0){toast("Isi Kalkulator Utang terlebih dahulu.");return;}
   const A=analyze(S),s=A.sim;
-  const t=["*Ringkasan Peta Utang (noriba)*",
+  const t=["*Ringkasan Kalkulator Utang (noriba)*",
    `Penghasilan: ${rp(A.income)} | Pengeluaran wajib: ${rp(A.expense)}`,
    `Total sisa utang: ${rp(A.totalSisa)} | Cicilan/bulan: ${rp(A.totalCic)}`,
    `Rasio cicilan: ${Math.round(A.ratio*100)}% (${A.zone.label})`,
@@ -1165,7 +1193,7 @@ $("#fileJson").addEventListener("change",e=>{
   rd.readAsText(f);
 });
 $("#btnWipe").addEventListener("click",()=>{
-  if(!confirm("Hapus seluruh data Peta Utang pada perangkat ini? Tindakan ini tidak dapat dibatalkan."))return;
+  if(!confirm("Hapus seluruh data Kalkulator Utang pada perangkat ini? Tindakan ini tidak dapat dibatalkan."))return;
   S={income:0,expense:0,savings:0,budget:0,strategy:"bunga",debts:[]};try{localStorage.removeItem(KEY);}catch(e){}
   step=1;renderReport();toast("Seluruh data telah dihapus.");
 });
@@ -1175,7 +1203,7 @@ const memStore={};
 const store={get(k){try{return localStorage.getItem("noriba."+k);}catch(e){return memStore[k]||null;}},set(k,v){try{localStorage.setItem("noriba."+k,v);}catch(e){memStore[k]=v;}}};
 const TOUR=[
  {sel:'.tab[data-go="home"]',t:"Beranda",x:"Halaman awal berisi pintasan ke semua fitur. Tekan tombol ini kapan saja untuk kembali ke sini."},
- {sel:'.tab[data-go="calc"]',t:"Peta Utang",x:"Mulailah dari sini. Isi kondisi keuangan dan daftar utang, lalu aplikasi menghitung urutan pelunasan Anda."},
+ {sel:'.tab[data-go="calc"]',t:"Kalkulator Utang",x:"Mulailah dari sini. Isi kondisi keuangan dan daftar utang, lalu aplikasi menghitung urutan pelunasan Anda."},
  {sel:'.tab[data-go="pustaka"]',t:"Pustaka",x:"Berisi fatwa dan dalil, tanya jawab, catatan hijrah, nasihat keuangan, dan motivasi. Gunakan kolom cari untuk menemukan topik."},
  {sel:'.tab[data-go="laporan"]',t:"Laporan",x:"Simpan hasil sebagai PDF, salin ringkasan untuk WhatsApp, atau cadangkan data Anda di sini."},
  {sel:"#tools",t:"Tampilan",x:"Geser tombol ke kanan untuk mode gelap, atau ke kiri untuk mode terang. Huruf A yang makin besar mengatur ukuran tulisan."},
